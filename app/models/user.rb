@@ -5,6 +5,7 @@ class User < ApplicationRecord
     has_many :bookings
     has_many :booked_taxis, through: :bookings, source: :taxi
 
+    has_many :blogs
 
 	  DRIVER = "Driver"
 
