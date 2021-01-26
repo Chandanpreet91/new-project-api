@@ -1,5 +1,5 @@
 class Api::V1::BlogsController < ApplicationController
-    before_action :find_question, only: [:show,:update, :destroy]
+    before_action :find_blog, only: [:show,:update, :destroy]
 
   def index
     blogs = Blog.order(created_at: :desc)
@@ -39,12 +39,14 @@ class Api::V1::BlogsController < ApplicationController
     @blog.destroy
     render(json: {errors: @blog.errors}, status:200)
   end
+
   private
-  def find_blog
-    @blog||=Blog.find params[:id]
-  end
-  def blog_params
-    params.require(:blog).permit(:title, :description)
-  end
-end
+    def find_blog
+        @blog||=Blog.find params[:id]
+    end
+  
+    def blog_params
+        params.require(:blog).permit(:title, :description)
+    end
+
 end
