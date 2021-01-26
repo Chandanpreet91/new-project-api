@@ -2,7 +2,7 @@ class Api::V1::BookingsController < ApplicationController
     def create
         user = User.find_by(token: params[:user][:token])
         taxi = Taxi.find_by(id: params[:taxi][:id])
-        location = taxi.
+       
 
         booking = Booking.create(taxi_id: taxi.id, status: Booking::AVAILABLE, user_id: user.id)
         drivers = Driver.where("status = ? ", Driver::ACTIVE)
