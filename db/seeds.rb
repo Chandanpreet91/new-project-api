@@ -10,7 +10,7 @@
 
 
 Taxi.destroy_all
-
+Blog.destroy_all
 User.destroy_all
 PASSWORD='supersecret'
 
@@ -33,7 +33,24 @@ User.create(
 end
 users=User.all
 
+10.times do 
+    Blog.create(
+        title: Faker::Vehicle.car_type ,
+        description: Faker::Vehicle.standard_specs
+    )
+end
+blogs = Blog.all 
 
+blogs.each do |b|
+    5.times do
+        Comment.create(
+            body: Faker::Hacker.say_something_smart,
+            blog_id: b.id,
+            user: users.sample 
+        )
+    end
+end
+comments = Comment.all 
 
 100.times do
     # 👇🏻This will generate Random date in the past(Up to maximum of N days)
@@ -53,6 +70,8 @@ users=User.all
 end
 taxis =Taxi.all
 
+
+
 taxis.each do |t|
     t.users = users.shuffle.slice(0,rand(users.count))
 end
@@ -66,3 +85,5 @@ puts Cowsay.say("Generated #{taxis.count} taxis", :frogs)
 puts Cowsay.say("Generated #{users.count} users", :beavis)
 puts Cowsay.say("Login with #{super_user.email} and password: #{PASSWORD}", :koala)
 puts Cowsay.say("Generated #{Booking.count} bookings for taxi", :bunny)
+puts Cowsay.say("Generated #{blogs.count} blogs", :sheep)
+puts Cowsay.say("Generated #{comments.count} comments", :ren)
