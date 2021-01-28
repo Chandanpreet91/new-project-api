@@ -3,8 +3,7 @@ class Api::V1::BlogsController < ApplicationController
 
   def index
     blogs = Blog.order(created_at: :desc)
-    # provide the each_serializer option to the render method to specify which serializer to use
-    # render(json: questions, each_serializer: QuestionCollectionSerializer)
+    
   end
 
   def show
