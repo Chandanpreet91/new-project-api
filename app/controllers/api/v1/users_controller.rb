@@ -1,8 +1,8 @@
 class Api::V1::UsersController < ApplicationController
-
+  
         def index
             if session[:current_user_id] == nil 
-              render json: {message: "Welcome to STRS-TAXI, please login to continue"}, status: 200
+              render json: {message: "Welcome to TAXI BOOKING SERVICE, please login to continue"}, status: 200
             
             else
               @bookings = Booking.joins(:taxi).joins(:user).all.order(:created_at).reverse_order

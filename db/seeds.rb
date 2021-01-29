@@ -12,48 +12,51 @@
 Taxi.destroy_all
 Blog.destroy_all
 User.destroy_all
+Comment.destroy_all
+
+NUM_OF_BLOGS = 10
 PASSWORD='supersecret'
 
-super_user=User.create(
-    first_name: 'Jon',
-    last_name: 'Snow',
-    email:"js@winterfell.gov",
-    password: PASSWORD,
-    is_admin: true
-)
-10.times do 
-first_name=Faker::Name.first_name
-last_name=Faker::Name.last_name
-User.create(
-    first_name:first_name,
-    last_name: last_name,
-    email: "#{first_name.downcase}.#{last_name.downcase}@example.com",
-    password: PASSWORD
-)
-end
-users=User.all
 
+    super_user=User.create(
+             first_name: 'Jon',
+             last_name: 'Snow',
+             email:"js@winterfell.gov",
+             password: PASSWORD,
+             is_admin: true
+            )
 
+            10.times do 
+                first_name=Faker::Name.first_name   
+                last_name=Faker::Name.last_name
+                User.create(
+                    first_name:first_name,
+                    last_name: last_name,
+                    email: "#{first_name.downcase}.#{last_name.downcase}@example.com",
+                    password: PASSWORD,
+                    is_admin: false,
+                    token: rand(100000000_00000000)
+                )
+            end
+    users=User.all
 
-10.times do 
-    Blog.create(
-        title: Faker::Vehicle.car_type ,
+NUM_OF_BLOGS.times do 
+        b = Blog.create(
+        title: Faker::Vehicle.car_type,
         description: Faker::Vehicle.standard_specs,
-        user: users.sample 
-    )
-end
-blogs = Blog.all 
-
-blogs.each do |b|
-    5.times do
-        Comment.create(
-            body: Faker::Hacker.say_something_smart,
-            blog_id: b.id,
-            user: users.sample 
-        )
+        user: users.sample
+         )
+        if b.valid?
+            b.comments = rand(0..10).times.map do 
+                Comment.new(
+                body: Faker::GreekPhilosophers.quote,
+                user: users.sample
+                )
+        end
     end
 end
-comments = Comment.all 
+blogs = Blog.all 
+comments = Comment.all
 
 100.times do
     # 👇🏻This will generate Random date in the past(Up to maximum of N days)
