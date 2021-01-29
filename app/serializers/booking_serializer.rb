@@ -1,6 +1,6 @@
 class BookingSerializer < ActiveModel::Serializer
 
-  attributes (
+  attributes(
     :id, 
     :driver_id, 
     :taxi_id, 

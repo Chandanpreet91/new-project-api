@@ -1,5 +1,5 @@
 class TaxiSerializer < ActiveModel::Serializer
-  attributes (
+  attributes(
     :id,
     :make,
     :model,

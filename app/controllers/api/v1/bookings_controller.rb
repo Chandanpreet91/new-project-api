@@ -56,7 +56,7 @@ class Api::V1::BookingsController < ApplicationController
         render json: {
             pickup:booking.pickup_location,
             dropoff:booking.dropoff_location,
-            time = booking.booked_time,
+            time: booking.booked_time,
 
          }
     end

@@ -33,10 +33,13 @@ User.create(
 end
 users=User.all
 
+
+
 10.times do 
     Blog.create(
         title: Faker::Vehicle.car_type ,
-        description: Faker::Vehicle.standard_specs
+        description: Faker::Vehicle.standard_specs,
+        user: users.sample 
     )
 end
 blogs = Blog.all 
